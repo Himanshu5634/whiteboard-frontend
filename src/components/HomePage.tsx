@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTimes, FaArrowRight } from 'react-icons/fa';
 import OtpInput from 'react-otp-input';
+import { Logo } from '../assets/icons';
+// --- UPDATED: Using a named import for the Logo ---
 
-// --- NEW: Interface for a recent board item ---
 interface RecentBoard {
   roomId: string;
   username: string;
@@ -14,11 +15,8 @@ const HomePage = () => {
   const [roomId, setRoomId] = useState('');
   const [username, setUsername] = useState('');
   const [modal, setModal] = useState<'create' | 'join' | null>(null);
-
-  // --- NEW: State for recent boards ---
   const [recentBoards, setRecentBoards] = useState<RecentBoard[]>([]);
 
-  // --- NEW: Load recent boards from localStorage on component mount ---
   useEffect(() => {
     const storedBoards = localStorage.getItem('recentBoards');
     if (storedBoards) {
@@ -26,9 +24,8 @@ const HomePage = () => {
     }
   }, []);
 
-  // --- NEW: Function to save a board to recent list ---
   const saveToRecentBoards = (board: RecentBoard) => {
-    const updatedBoards = [board, ...recentBoards.filter(b => b.roomId !== board.roomId)].slice(0, 3); // Keep last 3
+    const updatedBoards = [board, ...recentBoards.filter(b => b.roomId !== board.roomId)].slice(0, 3);
     setRecentBoards(updatedBoards);
     localStorage.setItem('recentBoards', JSON.stringify(updatedBoards));
   };
@@ -150,6 +147,8 @@ const HomePage = () => {
   return (
     <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 h-screen w-screen flex flex-col items-center justify-center text-white p-4 overflow-hidden">
       <div className="text-center">
+        {/* --- THE LOGO IS USED HERE --- */}
+        <Logo className="w-24 h-24 mx-auto mb-6" />
         <h1 className="text-6xl font-bold mb-4">Collaborative Whiteboard</h1>
         <p className="text-white/70 text-lg mb-12">Create, share, and collaborate in real-time.</p>
       </div>
@@ -169,7 +168,6 @@ const HomePage = () => {
         </button>
       </div>
       
-      {/* --- NEW: Recent Boards Section --- */}
       {recentBoards.length > 0 && (
         <div className="mt-16 w-full max-w-2xl">
             <h3 className="text-lg text-white/70 mb-4 text-center">Your Recent Boards</h3>

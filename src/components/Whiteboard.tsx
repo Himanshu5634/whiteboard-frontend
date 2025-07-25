@@ -9,7 +9,7 @@ import UserAvatar from './UserAvatar';
 
 // --- THIS IS THE CRITICAL CHANGE ---
 // We now connect to a specific URL. You will replace this with your live backend URL from Render.
-const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001 || https://whiteboard-backend-0fmu.onrender.com/';
 const socket: Socket = io(VITE_BACKEND_URL);
 
 
